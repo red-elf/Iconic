@@ -76,10 +76,8 @@ Exec="$BIN"
 Version=$VERSION
 Type=Application
 Categories=Development;IDE;
-Terminal=true
 Icon=$LAUNCHER
 Comment=$DESCRIPTION
-StartupNotify=true
 EOF
 )
 
