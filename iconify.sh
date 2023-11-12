@@ -1,6 +1,6 @@
 #!/bin/bash
 
-HERE=$(PWD)
+HERE=$(pwd)
 
 RECIPE="$HERE/Recipes/Iconic/launcher_parameters.sh"
 
@@ -17,3 +17,29 @@ fi
 
 # shellcheck disable=SC1090
 . "$RECIPE"
+
+if [ -z "$BIN" ]; then
+
+    echo "ERROR: 'BIN' variable not set"
+    exit 1
+fi
+
+if ! test -e "$BIN"; then
+
+    echo "ERROR: 'BIN' path is not valid '$BIN'"
+    exit 1
+fi
+
+if [ -z "$LAUNCHER" ]; then
+
+    echo "ERROR: 'LAUNCHER' variable not set"
+    exit 1
+fi
+
+if ! test -e "$LAUNCHER"; then
+
+    echo "ERROR: 'LAUNCHER' path is not valid '$BIN'"
+    exit 1
+fi
+
+echo "Iconify: Icon='$LAUNCHER', Executable='$BIN'"
