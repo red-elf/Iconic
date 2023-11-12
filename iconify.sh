@@ -86,17 +86,19 @@ echo "Iconify: Path='$CMD_PATH', Command='$CMD'"
 
 TERMINAL="gnome-terminal"
 TERMINAL_MATE="mate-terminal"
+TO_EXECUTE="gnome-terminal --geometry=250x70 -- /bin/bash -ic 'source ~/.bashrc && ./open; read'"
 
 if which "$TERMINAL_MATE" >/dev/null 2>&1; then
 
     TERMINAL="$TERMINAL_MATE"
+    TO_EXECUTE="$TERMINAL --geometry=250x70 -e $CMD_PATH/$CMD"
 fi
 
 CONTENT=$(cat << EOF
 [Desktop Entry]
 Name=$NAME $VERSION
 Path=$CMD_PATH
-Exec=$TERMINAL --geometry=250x70 -e $CMD_PATH/$CMD
+Exec=$TO_EXECUTE
 Terminal=true
 Version=$VERSION
 Type=Application
