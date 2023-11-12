@@ -108,7 +108,7 @@ if echo "$CONTENT" > "$FILE_DESTINATION"; then
     echo "The desktop launcher entry file written: '$FILE_DESTINATION'" && \
         echo "$CONTENT"
 
-    if [ -n "$DESKTOP_ICON" ] && [ "$DESKTOP_ICON" == true ]; then
+    if [ -n "$DESKTOP_ICON" ] && [ "$DESKTOP_ICON" = true ]; then
 
         FILE_DESKTOP_SHORTCUT="$DIR_DESKTOP/$DESKTOP_FILE_NAME"
 
