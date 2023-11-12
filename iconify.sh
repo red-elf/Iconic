@@ -110,11 +110,20 @@ if echo "$CONTENT" > "$FILE_DESTINATION"; then
 
     if [ -n "$DESKTOP_ICON" ] && [ "$DESKTOP_ICON" == true ]; then
 
-        if ! test -e "$DESKTOP_ICON" && test -e "$DIR_DESKTOP"; then
+        FILE_DESKTOP_SHORTCUT="$DIR_DESKTOP/$DESKTOP_FILE_NAME"
 
-            FILE_DESKTOP_SHORTCUT="$DIR_DESKTOP/$DESKTOP_FILE_NAME"
+        if test -e "$FILE_DESKTOP_SHORTCUT"; then
 
-            if ln -s "$FILE_DESTINATION" "$FILE_DESKTOP_SHORTCUT"; then
+            if ! rm -f "$FILE_DESKTOP_SHORTCUT"; then
+
+                echo "ERROR: Could not remove existing desktop shortcut file '$FILE_DESKTOP_SHORTCUT'"
+                exit 1
+            fi
+        fi
+
+        if test -e "$DIR_DESKTOP"; then
+
+            if cp "$FILE_DESTINATION" "$FILE_DESKTOP_SHORTCUT"; then
 
                 echo "Dekstop shortcut created: '$FILE_DESKTOP_SHORTCUT'"
 
