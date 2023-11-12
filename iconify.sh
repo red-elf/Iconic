@@ -60,7 +60,14 @@ if ! test -e "$LAUNCHER"; then
     exit 1
 fi
 
-echo "Iconify: Name='$NAME', Version='$VERSION' Icon='$LAUNCHER', Executable='$BIN', Description='$DESCRIPTION'"
+if [ -z "$DESKTOP_FILE_NAME" ]; then
+
+    echo "ERROR: 'DESKTOP_FILE_NAME' variable not set"
+    exit 1
+fi
+
+echo "Iconify: Name='$NAME', Version='$VERSION' Icon='$LAUNCHER'"
+echo "Iconify: Executable='$BIN', Description='$DESCRIPTION', File='$DESKTOP_FILE_NAME'"
 
 CONTENT=$(cat << EOF
 [Desktop Entry]
@@ -76,5 +83,30 @@ StartupNotify=true
 EOF
 )
 
-# TODO: Write into the file
-echo ">>>> $CONTENT <<<<"
+if [ -n "$2" ]; then
+
+    DIR_DESTINATION="$2"
+
+else
+
+    DIR_HOME=$(eval echo ~"$USER")
+    DIR_DESTINATION="$DIR_HOME/.local/share/applications"
+fi
+
+if ! test -e "$DIR_DESTINATION"; then
+
+    echo "ERROR: The destination directory does not exist '$DIR_DESTINATION'"
+    exit 1
+fi
+
+FILE_DESTINATION="$DIR_DESTINATION/$DESKTOP_FILE_NAME"
+
+if echo "$CONTENT" > "$FILE_DESTINATION"; then
+
+    echo "The desktop launcher entry file written: '$FILE_DESTINATION'"
+
+else
+
+    echo "ERROR: The desktop launcher entry file not written '$FILE_DESTINATION'"
+    exit 1
+fi
