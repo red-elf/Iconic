@@ -1,6 +1,8 @@
 #!/bin/bash
 
 HERE=$(pwd)
+DIR_HOME=$(eval echo ~"$USER")
+DIR_DESKTOP="$DIR_HOME/Desktop"
 
 if [ -n "$1" ]; then
 
@@ -90,7 +92,6 @@ if [ -n "$2" ]; then
 
 else
 
-    DIR_HOME=$(eval echo ~"$USER")
     DIR_DESTINATION="$DIR_HOME/.local/share/applications"
 fi
 
@@ -106,6 +107,24 @@ if echo "$CONTENT" > "$FILE_DESTINATION"; then
 
     echo "The desktop launcher entry file written: '$FILE_DESTINATION'" && \
         echo "$CONTENT"
+
+    if [ -n "$DESKTOP_ICON" ] && [ "$DESKTOP_ICON" == true ]; then
+
+        if ! test -e "$DESKTOP_ICON" && test -e "$DIR_DESKTOP"; then
+
+            FILE_DESKTOP_SHORTCUT="$DIR_DESKTOP/$DESKTOP_FILE_NAME"
+
+            if ln -s "$FILE_DESTINATION" "$FILE_DESKTOP_SHORTCUT"; then
+
+                echo "Dekstop shortcut created: '$FILE_DESKTOP_SHORTCUT'"
+
+            else
+
+                echo "ERROR: Dekstop shortcut was not created: '$FILE_DESKTOP_SHORTCUT'"
+                exit 1
+            fi
+        fi
+    fi
 
 else
 
