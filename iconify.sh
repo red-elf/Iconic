@@ -97,8 +97,8 @@ fi
 CONTENT=$(cat << EOF
 [Desktop Entry]
 Name=$NAME $VERSION
-Path="$CMD_PATH"
-Exec="$TERMINAL --geometry=250x70 -e $CMD_PATH/$COMMAND"
+Path=$CMD_PATH
+Exec=$TERMINAL --geometry=250x70 -e $CMD_PATH/$COMMAND
 Terminal=true
 Version=$VERSION
 Type=Application
