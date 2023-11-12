@@ -69,10 +69,13 @@ fi
 echo "Iconify: Name='$NAME', Version='$VERSION' Icon='$LAUNCHER'"
 echo "Iconify: Executable='$BIN', Description='$DESCRIPTION', File='$DESKTOP_FILE_NAME'"
 
+COMMAND="bash -c '$BIN'"
+
 CONTENT=$(cat << EOF
 [Desktop Entry]
 Name=$NAME $VERSION
-Exec="$BIN"
+Exec=$COMMAND
+Terminal=true
 Version=$VERSION
 Type=Application
 Categories=Development;IDE;
@@ -101,7 +104,8 @@ FILE_DESTINATION="$DIR_DESTINATION/$DESKTOP_FILE_NAME"
 
 if echo "$CONTENT" > "$FILE_DESTINATION"; then
 
-    echo "The desktop launcher entry file written: '$FILE_DESTINATION'"
+    echo "The desktop launcher entry file written: '$FILE_DESTINATION'" && \
+        echo "$CONTENT"
 
 else
 
