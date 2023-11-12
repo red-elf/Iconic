@@ -84,8 +84,6 @@ echo "Iconify: Name='$NAME', Version='$VERSION' Icon='$LAUNCHER'"
 echo "Iconify: Description='$DESCRIPTION', File='$DESKTOP_FILE_NAME'"
 echo "Iconify: Path='$CMD_PATH', Command='$CMD'"
 
-COMMAND="$CMD"
-
 TERMINAL="gnome-terminal"
 TERMINAL_MATE="mate-terminal"
 
@@ -98,7 +96,7 @@ CONTENT=$(cat << EOF
 [Desktop Entry]
 Name=$NAME $VERSION
 Path=$CMD_PATH
-Exec=$TERMINAL --geometry=250x70 -e $CMD_PATH/$COMMAND
+Exec=$TERMINAL --geometry=250x70 -e $CMD_PATH/$CMD
 Terminal=true
 Version=$VERSION
 Type=Application
