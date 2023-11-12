@@ -2,12 +2,12 @@
 
 HERE=$(pwd)
 
-RECIPE="$HERE/Recipes/Iconic/launcher_parameters.sh"
-
 if [ -n "$1" ]; then
 
     RECIPE="$1"
 fi
+
+RECIPE="$HERE/Recipes/Iconic/launcher_parameters.sh"
 
 if ! test -e "$RECIPE"; then
 
@@ -17,6 +17,24 @@ fi
 
 # shellcheck disable=SC1090
 . "$RECIPE"
+
+if [ -z "$VERSION" ]; then
+
+    echo "ERROR: 'VERSION' variable not set"
+    exit 1
+fi
+
+if [ -z "$NAME" ]; then
+
+    echo "ERROR: 'NAME' variable not set"
+    exit 1
+fi
+
+if [ -z "$DESCRIPTION" ]; then
+
+    echo "ERROR: 'DESCRIPTION' variable not set"
+    exit 1
+fi
 
 if [ -z "$BIN" ]; then
 
@@ -42,4 +60,21 @@ if ! test -e "$LAUNCHER"; then
     exit 1
 fi
 
-echo "Iconify: Icon='$LAUNCHER', Executable='$BIN'"
+echo "Iconify: Name='$NAME', Version='$VERSION' Icon='$LAUNCHER', Executable='$BIN', Description='$DESCRIPTION'"
+
+CONTENT=$(cat << EOF
+[Desktop Entry]
+Name=$NAME $VERSION
+Exec="$BIN"
+Version=$VERSION
+Type=Application
+Categories=Development;IDE;
+Terminal=true
+Icon=$LAUNCHER
+Comment=$DESCRIPTION
+StartupNotify=true
+EOF
+)
+
+# TODO: Write into the file
+echo ">>>> $CONTENT <<<<"
