@@ -4,12 +4,18 @@ HERE=$(pwd)
 DIR_HOME=$(eval echo ~"$USER")
 DIR_DESKTOP="$DIR_HOME/Desktop"
 
+RECIPE="$HERE/Recipes/Iconic/launcher_parameters.sh"
+
 if [ -n "$1" ]; then
 
     RECIPE="$1"
-fi
+    
+    echo "Using the provided iconify recipe: $RECIPE"
 
-RECIPE="$HERE/Recipes/Iconic/launcher_parameters.sh"
+else
+
+    echo "Using the default iconify recipe: $RECIPE"
+fi
 
 if ! test -e "$RECIPE"; then
 
