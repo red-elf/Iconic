@@ -44,15 +44,21 @@ if [ -z "$DESCRIPTION" ]; then
     exit 1
 fi
 
-if [ -z "$BIN" ]; then
+if [ -z "$CMD_PATH" ]; then
 
-    echo "ERROR: 'BIN' variable not set"
+    echo "ERROR: 'CMD_PATH' variable not set"
     exit 1
 fi
 
-if ! test -e "$BIN"; then
+if [ -z "$CMD" ]; then
 
-    echo "ERROR: 'BIN' path is not valid '$BIN'"
+    echo "ERROR: 'CMD' variable not set"
+    exit 1
+fi
+
+if ! test -e "$CMD_PATH"; then
+
+    echo "ERROR: 'CMD_PATH' path is not valid '$CMD_PATH'"
     exit 1
 fi
 
@@ -64,7 +70,7 @@ fi
 
 if ! test -e "$LAUNCHER"; then
 
-    echo "ERROR: 'LAUNCHER' path is not valid '$BIN'"
+    echo "ERROR: 'LAUNCHER' path is not valid '$LAUNCHER'"
     exit 1
 fi
 
@@ -75,14 +81,24 @@ if [ -z "$DESKTOP_FILE_NAME" ]; then
 fi
 
 echo "Iconify: Name='$NAME', Version='$VERSION' Icon='$LAUNCHER'"
-echo "Iconify: Executable='$BIN', Description='$DESCRIPTION', File='$DESKTOP_FILE_NAME'"
+echo "Iconify: Description='$DESCRIPTION', File='$DESKTOP_FILE_NAME'"
+echo "Iconify: Path='$CMD_PATH', Command='$CMD'"
 
-COMMAND="$BIN"
+COMMAND="$CMD"
+
+TERMINAL="gnome-terminal"
+TERMINAL_MATE="mate-terminal"
+
+if which "$TERMINAL_MATE" >/dev/null 2>&1; then
+
+    TERMINAL="$TERMINAL_MATE"
+fi
 
 CONTENT=$(cat << EOF
 [Desktop Entry]
 Name=$NAME $VERSION
-Exec=$COMMAND
+Path="$CMD_PATH"
+Exec="$TERMINAL --geometry=250x70 -e $CMD_PATH/$COMMAND"
 Terminal=true
 Version=$VERSION
 Type=Application
