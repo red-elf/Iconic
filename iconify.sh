@@ -71,7 +71,7 @@ fi
 echo "Iconify: Name='$NAME', Version='$VERSION' Icon='$LAUNCHER'"
 echo "Iconify: Executable='$BIN', Description='$DESCRIPTION', File='$DESKTOP_FILE_NAME'"
 
-COMMAND="bash -c '$BIN'"
+COMMAND="$BIN"
 
 CONTENT=$(cat << EOF
 [Desktop Entry]
