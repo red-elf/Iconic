@@ -103,7 +103,7 @@ fi
 
 FILE_DESTINATION="$DIR_DESTINATION/$DESKTOP_FILE_NAME"
 
-if echo "$CONTENT" > "$FILE_DESTINATION"; then
+if echo "$CONTENT" > "$FILE_DESTINATION" && chmod 750 "$FILE_DESTINATION"; then
 
     echo "The desktop launcher entry file written: '$FILE_DESTINATION'" && \
         echo "$CONTENT"
