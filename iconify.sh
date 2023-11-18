@@ -96,7 +96,7 @@ fi
 
 CONTENT=$(cat << EOF
 [Desktop Entry]
-Name=$NAME\n$VERSION
+Name=$NAME $VERSION
 Path=$CMD_PATH
 Exec=$TO_EXECUTE
 Terminal=false
