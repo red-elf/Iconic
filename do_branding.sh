@@ -20,9 +20,7 @@ if ! test "$LAUNCHER_ASSET"; then
     exit 1
 fi
 
-echo "VSCode branding icon asset path: '$LAUNCHER_ASSET'"
-
-PATH_LAUNCHER_ICON="resources/app/resources/linux"
+echo "Branding icon asset path: '$LAUNCHER_ASSET'"
 
 SCRIPT_GET_PROGRAM="$SUBMODULES_HOME/Software-Toolkit/Utils/Sys/Programs/get_program.sh"
 SCRIPT_GET_CODE_PATHS="$SUBMODULES_HOME/Software-Toolkit/Utils/VSCode/get_paths.sh"
@@ -42,6 +40,8 @@ fi
 # shellcheck disable=SC1090
 . "$SCRIPT_GET_CODE_PATHS"
 
+# VSCode branding support:
+#
 if sh "$SCRIPT_GET_PROGRAM" code >/dev/null 2>&1; then
 
     GET_VSCODE_PATHS
@@ -52,6 +52,7 @@ if sh "$SCRIPT_GET_PROGRAM" code >/dev/null 2>&1; then
         exit 1
     fi
 
+    PATH_LAUNCHER_ICON="resources/app/resources/linux"
     CODE_LAUNCHER_ICON_PATH="$CODE_DIR/$PATH_LAUNCHER_ICON"
 
     if ! test -e "$CODE_LAUNCHER_ICON_PATH"; then
@@ -66,6 +67,8 @@ if sh "$SCRIPT_GET_PROGRAM" code >/dev/null 2>&1; then
 
         echo "VSCode icon path: '$ICON'"
     fi
+
+    echo "Branding '$LAUNCHER_ASSET' -> '$ICON'"
 
     # TODO: Replace with the branding asset
 fi
