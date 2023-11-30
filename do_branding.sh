@@ -8,7 +8,7 @@ fi
 
 if [ -z "$1" ]; then
 
-    echo "Path to the launcher icon resource is mandatory"
+    echo "ERROR: Path to the launcher icon resource is mandatory"
     exit 1
 fi
 
