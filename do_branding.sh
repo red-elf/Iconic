@@ -70,5 +70,14 @@ if sh "$SCRIPT_GET_PROGRAM" code >/dev/null 2>&1; then
 
     echo "Branding '$LAUNCHER_ASSET' -> '$ICON'"
 
-    # TODO: Replace with the branding asset
+    if ! rm -f "$ICON"; then
+
+      echo "ERROR: Could not remove '$ICON'"
+      exit 1
+    fi
+
+    if cp "$LAUNCHER_ASSET" "$ICON"; then
+
+      echo "Branding completed"
+    fi
 fi
