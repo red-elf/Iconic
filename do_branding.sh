@@ -42,7 +42,7 @@ fi
 
 # VSCode branding support:
 #
-if sh "$SCRIPT_GET_PROGRAM" code >/dev/null 2>&1; then
+if bash "$SCRIPT_GET_PROGRAM" code >/dev/null 2>&1; then
 
     GET_VSCODE_PATHS
 
